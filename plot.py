@@ -1,4 +1,5 @@
 import re
+from turtle import title
 
 import pandas as pd
 import plotly.colors as pc
@@ -126,7 +127,7 @@ for index, row in unknown_df.sort_values("score").iterrows():
         ),
         line_color=colors[index % len(colors)],
     )
-fig.update_xaxes(range=[0, 700])
-fig.update_yaxes(range=[0.597, 0.94])
-fig.write_html("pfgen_bench_20250102.html")
+fig.update_xaxes(range=[0, 700], title_text="Model Size (Billion Params)")
+fig.update_yaxes(range=[0.597, 0.94], title_text="Avg. pfgen Score")
+fig.write_html("html/pfgen_bench_20250102.html")
 fig.show()
