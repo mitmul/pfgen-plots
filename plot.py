@@ -8,9 +8,10 @@ import requests
 
 pfgen_leaderboard_url = "https://raw.githubusercontent.com/pfnet-research/pfgen-bench/refs/heads/main/README.md"
 response = requests.get(pfgen_leaderboard_url)
+markdown_text = response.text
 match = re.search(
     r"<!-- leaderboard -->(.*?)<!-- /leaderboard -->",
-    response.text,
+    markdown_text,
     re.DOTALL,
 )
 if match is not None:
@@ -106,6 +107,7 @@ for line in cleaned_leaderboard_str.split("\n"):
     data["score"].append(score)
     data["model_name"].append(model_name)
 df = pd.DataFrame.from_dict(data)
+df = df.sort_values("score", ascending=False)
 fig = px.scatter(
     df,
     x="size",
@@ -129,5 +131,5 @@ for index, row in unknown_df.sort_values("score").iterrows():
     )
 fig.update_xaxes(range=[0, 700], title_text="Model Size (Billion Params)")
 fig.update_yaxes(range=[0.597, 0.94], title_text="Avg. pfgen Score")
-fig.write_html("html/pfgen_bench_20250102.html")
+fig.write_html("html/pfgen_bench_20250110.html")
 fig.show()
