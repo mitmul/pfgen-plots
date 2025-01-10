@@ -53,6 +53,8 @@ for line in cleaned_leaderboard_str.split("\n"):
         size = 0.4
     elif "cyberagent/open-calm-small" in model_name:
         size = 0.16
+    elif "microsoft/phi-4" in model_name:
+        size = 14.0
     elif "microsoft/Phi-3-medium-128k-instruct" in model_name:
         size = 14.0
     elif "microsoft/Phi-3-medium-4k-instruct" in model_name:
